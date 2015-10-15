@@ -22,8 +22,8 @@ public void testingDB(){
 			System.out.println("No Employees");
 		}
 		while (rs.next()) {
-			String username = rs.getString("employee_Fname");
-			
+			String username = rs.getString("fName");
+			System.out.println(username);
 				
 			}
 		

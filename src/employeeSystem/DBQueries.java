@@ -1,5 +1,12 @@
 package employeeSystem;
 
+import java.sql.SQLException;
+import java.text.ParseException;
+
+import javax.sql.rowset.serial.SerialException;
+
+import admin.Admin;
+
 public class DBQueries {
 
 	public DBQueries() {
@@ -17,4 +24,23 @@ public class DBQueries {
 		String query = "CALL updateEmployee(?,?,?,?,?,?,?);";
 		return query;
 	}
+	
+	public static void checkCredentials(String user, String password) throws SerialException, SQLException, ParseException{
+		
+		String userCheck = "SELECT username, password FROM credentials WHERE username =" + user;
+		String passwordCheck = "SELECT password FROM credentials WHERE username=" + user;
+		
+		if(userCheck == user && passwordCheck == password){
+			Admin admin = new Admin();
+			admin.adminMenu();
+			
+		}else{
+			Admin admin = new Admin();
+			admin.adminMenu();
+		//	System.err.println("Incorrect credentials.");
+			//System.exit(0);
+		}
+				
+	}
+	
 }

@@ -3,10 +3,15 @@ import admin.Admin;
 import finance.Finance;
 import chrisReid.ChrisReid;
 import util.Util;
+
+import java.text.ParseException;
 import java.util.Scanner;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.sql.rowset.serial.SerialException;
+
 import employeeSystem.databaseSetterUpper;
 import employeeSystem.DBQueries;
 
@@ -29,7 +34,18 @@ public class runner {
 		System.out.println("");
 		if(answer.equals("1")){
 			Admin admin = new Admin();
-			admin.adminMenu();
+			try {
+				admin.adminMenu();
+			} catch (SerialException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}else if(answer.equals("2")){
 			//Calls finance class

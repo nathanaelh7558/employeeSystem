@@ -163,6 +163,7 @@ CREATE Procedure updateEmployee(
 	newDOB datetime,
 	newFName varchar(30),
 	newLName varchar(30),
+	newTitle varchar(30),
 	newPicture blob,
 	newSalary decimal(11,2)	
 	)

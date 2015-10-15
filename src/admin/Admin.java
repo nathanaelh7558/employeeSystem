@@ -26,6 +26,10 @@ public Admin(){
 			Date date = new Date(14, 04, 1995);
 			util.runAddUserQuery(yup.addUser(), date, "nat", "holmes", "mr", null,5600.50);
 		}else if (answer.equals("2")){
+			 java.util.Date utilDate = new java.util.Date();
+			    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			    System.out.println("utilDate:" + utilDate);
+			    System.out.println("sqlDate:" + sqlDate);
 			//Answer is 2
 			
 		}else if(answer.equals("3")){

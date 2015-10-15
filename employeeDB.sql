@@ -196,6 +196,26 @@ VALUES (Pname, Sdate, Edate);
 end //
 DELIMITER ;
 
+-- Update Project
+
+DELIMITER // 
+CREATE Procedure updateProject(
+	ID int(11),
+	newName varchar(30),
+	newStartDate datetime,
+	newEndDate datetime	
+	)
+BEGIN
+UPDATE 
+	project
+SET 
+	name = newName,
+	startDate = newStartDate,
+	endDate = newEndDate
+WHERE 
+	projectId = ID;
+end //
+DELIMITER ; 
 -- Assign billable employee
 -- Admin team ONLY 
 

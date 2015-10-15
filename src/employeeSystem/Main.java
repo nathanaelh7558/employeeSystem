@@ -11,7 +11,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		runner run = new runner();
-		run.getUserType();
+		run.getLoginDetails();
 
 
 	}

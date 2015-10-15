@@ -1,11 +1,14 @@
 package util;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 import employeeSystem.DBQueries;
 import employeeSystem.databaseSetterUpper;
@@ -36,4 +39,24 @@ public boolean runAddUserQuery(String query, Date a, String fname, String sname,
 		return false;
 	}
 }
+public boolean runRemoveUserQuery(String query, int ID ){
+	DBQueries yup = new DBQueries();
+	databaseSetterUpper DB = new databaseSetterUpper(query);
+	PreparedStatement pstmt = DB.pstmt;
+	
+	try {
+		pstmt.setInt(1, ID);
+		pstmt.executeUpdate();	
+		return true;
+	} catch (SQLException e) {
+		System.out.println(e);
+		return false;
+	}
+}
+//	public Date convertDate(String tempdate){
+//		//Return like so - YYYY-MM-DD 00:00:00
+//	}
+	
+	
+
 }

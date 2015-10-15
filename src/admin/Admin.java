@@ -52,19 +52,29 @@ public class Admin {
 			String temp = scanner.nextLine();
 			System.out.println("Please enter the date the employee will start working on this project");
 			String startDate = scanner.nextLine();
-			System.out.println("DOB: ");
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-			java.sql.Date dob = null;
+		      //Converts string to date
+		      SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				java.util.Date dob = null;
+				java.sql.Date sqlDate = null;
+				try {
+					dob = formatter.parse(startDate);
+				    sqlDate = new java.sql.Date(dob.getTime());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			System.out.println("Please enter the date the employee will stop working on this project");
+			String endDate = scanner.nextLine();
+			java.util.Date dob2 = null;
+			java.sql.Date sqlDate2 = null;
 			try {
-				dob = (Date) formatter.parse(startDate);
+				dob2 = formatter.parse(endDate);
+			    sqlDate2 = new java.sql.Date(dob.getTime());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(dob);
-			System.out.println("Please enter the date the employee will stop working on this project");
-			String endDate = scanner.nextLine();
-			if(util.runAssignUserQuery(yup.assignToProject(), Integer.parseInt(temp), Integer.parseInt(temp2), dob, dob)){
+			if(util.runAssignUserQuery(yup.assignToProject(), Integer.parseInt(temp), Integer.parseInt(temp2), sqlDate, sqlDate2)){
 				System.out.println("Employee Assigned.");
 			} else{
 				System.out.println("Employee Could Not Be Assigned to this project.");

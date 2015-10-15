@@ -32,19 +32,25 @@ public class Admin {
 
 		System.out.println("What would you like to do? ");
 		System.out
-				.println("1: Add employee || 2: Assign employee to project || 3: Update employee || 4: Remove employee");
+		.println("1: Add employee || "
+				+ "2: Assign employee to project || "
+				+ "3: Update employee || "
+				+ "4: Remove employee ||"
+				+ "5: Add project ||"
+				+ "6: Update project ||"
+				+ "7: Delete Project ||");
 		answer = scanner.nextLine();
 		System.out.println("");
 		Util util = new Util();
 		if(answer.equals("1")){			
-		employeeObject user = getEmployeeDetails();
+			employeeObject user = getEmployeeDetails();
 			if(util.runAddUserQuery(yup.addUser(), user.getDOB(), user.getFirstName(), user.getsurName(), user.getTitle(),(Blob) null,user.getSalary())){
 				System.out.println("Employee Created");
 			} else {
 				System.out.println("Could Not Create Employee");
 			}
-//			getEmployeeDetails();
-			
+			//			getEmployeeDetails();
+
 		}else if (answer.equals("2")){
 			System.out.println("Enter projectId of project");
 			String temp2 = scanner.nextLine();
@@ -52,24 +58,24 @@ public class Admin {
 			String temp = scanner.nextLine();
 			System.out.println("Please enter the date the employee will start working on this project");
 			String startDate = scanner.nextLine();
-		      //Converts string to date
-		      SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-				java.util.Date dob = null;
-				java.sql.Date sqlDate = null;
-				try {
-					dob = formatter.parse(startDate);
-				    sqlDate = new java.sql.Date(dob.getTime());
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			//Converts string to date
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			java.util.Date dob = null;
+			java.sql.Date sqlDate = null;
+			try {
+				dob = formatter.parse(startDate);
+				sqlDate = new java.sql.Date(dob.getTime());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("Please enter the date the employee will stop working on this project");
 			String endDate = scanner.nextLine();
 			java.util.Date dob2 = null;
 			java.sql.Date sqlDate2 = null;
 			try {
 				dob2 = formatter.parse(endDate);
-			    sqlDate2 = new java.sql.Date(dob.getTime());
+				sqlDate2 = new java.sql.Date(dob.getTime());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -79,48 +85,48 @@ public class Admin {
 			} else{
 				System.out.println("Employee Could Not Be Assigned to this project.");
 			}
-			    
+
 		}
-			else if(answer.equals("3")){
-				
-				//Update
-				System.out.println("Enter ID of employee to be updated: ");
-				int employeeId = Integer.parseInt(scanner.nextLine());
-				System.out.println("DOB: ");
-				String tempDOB = scanner.nextLine();
-			      //Converts string to date
-			      SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-					java.util.Date dob = null;
-					java.sql.Date sqlDate = null;
-					try {
-						dob = formatter.parse(tempDOB);
-					    sqlDate = new java.sql.Date(dob.getTime());
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-				System.out.println("First name: ");
-				String f_name = scanner.nextLine();
-				
-				System.out.println("Last name: ");
-				String l_name = scanner.nextLine();
-				
-				System.out.println("Title: ");
-				String title = scanner.nextLine();
-				
-				System.out.println("Pic: ");
-				//String to Bytes[] to Blob
-				String stringToBytes = scanner.nextLine();
-				byte[] bytesToBlob = stringToBytes.getBytes();
-				Blob pictureBlob = new javax.sql.rowset.serial.SerialBlob(bytesToBlob);
-				
-				System.out.println("Salary: ");
-				Double salary = scanner.nextDouble();
-				
-				if(util.runUpdateUserQuery(yup.updateUser(), employeeId, sqlDate, f_name, l_name, title, pictureBlob, salary)){
-					System.out.println("Employee " + employeeId + " updated!");
-				};
+		else if(answer.equals("3")){
+
+			//Update
+			System.out.println("Enter ID of employee to be updated: ");
+			int employeeId = Integer.parseInt(scanner.nextLine());
+			System.out.println("DOB: ");
+			String tempDOB = scanner.nextLine();
+			//Converts string to date
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			java.util.Date dob = null;
+			java.sql.Date sqlDate = null;
+			try {
+				dob = formatter.parse(tempDOB);
+				sqlDate = new java.sql.Date(dob.getTime());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			System.out.println("First name: ");
+			String f_name = scanner.nextLine();
+
+			System.out.println("Last name: ");
+			String l_name = scanner.nextLine();
+
+			System.out.println("Title: ");
+			String title = scanner.nextLine();
+
+			System.out.println("Pic: ");
+			//String to Bytes[] to Blob
+			String stringToBytes = scanner.nextLine();
+			byte[] bytesToBlob = stringToBytes.getBytes();
+			Blob pictureBlob = new javax.sql.rowset.serial.SerialBlob(bytesToBlob);
+
+			System.out.println("Salary: ");
+			Double salary = scanner.nextDouble();
+
+			if(util.runUpdateUserQuery(yup.updateUser(), employeeId, sqlDate, f_name, l_name, title, pictureBlob, salary)){
+				System.out.println("Employee " + employeeId + " updated!");
+			};
 		}
 		else if(answer.equals("4")){
 			System.out.println("Enter ID of employee to be deleted: ");
@@ -131,13 +137,23 @@ public class Admin {
 			} else{
 				System.out.println("Employee Could Not Be Deleted.");
 			}
-		}else{	
+		}
+		else if(answer.equals("5")){
+			//add project
+		}
+		else if(answer.equals("6")){
+			//update project
+		}
+		else if(answer.equals("7")){
+			//delete project
+		}
+		else{	
 			System.out.println("Please enter a valid selection");
 			adminMenu();
 		}
 	}	
-	
-	
+
+
 	public employeeObject getEmployeeDetails(){
 		//Initialize variables 
 		String firstName, surname, title, picture, tempDOB;
@@ -145,7 +161,7 @@ public class Admin {
 		Date DOB;
 		// Outputs helper text
 		System.out
-				.println("Provide the new employee''s details in following: ");
+		.println("Provide the new employee''s details in following: ");
 		System.out.println("Employee's title:  ");
 		title = scanner.nextLine();
 		// Get firstName
@@ -157,13 +173,13 @@ public class Admin {
 		// Get DOB
 		System.out.print("Employee's DOB:  ");
 		tempDOB = scanner.nextLine();
-      //Converts string to date
-      SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		//Converts string to date
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		java.util.Date dob = null;
 		java.sql.Date sqlDate = null;
 		try {
 			dob = formatter.parse(tempDOB);
-		    sqlDate = new java.sql.Date(dob.getTime());
+			sqlDate = new java.sql.Date(dob.getTime());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

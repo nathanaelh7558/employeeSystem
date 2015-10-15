@@ -14,7 +14,7 @@ public class databaseSetterUpper {
 		
 	public databaseSetterUpper(String x, int chris) {
 		try {
-			connection = DriverManager.getConnection(DB_URL, "chrisR", "password");
+			connection = DriverManager.getConnection(DB_URL, "chrisr", "chrisrocks");
 			pstmt = connection.prepareStatement(x);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

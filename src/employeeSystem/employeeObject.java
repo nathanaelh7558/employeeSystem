@@ -1,13 +1,13 @@
 package employeeSystem;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class employeeObject {
 	private String firstName;
 	private String surName;
 	private int employeeID;
 	private String title;
-	private float salary;
+	private Double salary;
 	private Date DOB;
 	
 	//Overloaded constructor
@@ -20,24 +20,18 @@ public class employeeObject {
 		setSurName(surName);
 	}
 	
-	
-	public employeeObject(String firstName, String surName, int employee_id){
+	public employeeObject(String firstName, String surName, String title){
 		this(firstName, surName);
-		setEmployeeID(employee_id);
-	}
-	
-	public employeeObject(String firstName, String surName, int employee_id, String title){
-		this(firstName, surName, employee_id);
 		setTitle(title);
 	}
 	
-	public employeeObject(String firstName, String surName, int employee_id, String title, float salary){
-		this(firstName, surName, employee_id, title);
+	public employeeObject(String firstName, String surName, String title, Double salary){
+		this(firstName, surName, title);
 		setSalary(salary);
 	}
 	
-	public employeeObject(String firstName, String surName, int employee_id, String title, float salary, Date DOB){
-		this(firstName, surName, employee_id, title, salary);
+	public employeeObject(String firstName, String surName,  String title, Double salary, Date DOB){
+		this(firstName, surName, title, salary);
 		setDob(DOB);
 	}
 	
@@ -59,7 +53,7 @@ public class employeeObject {
 		return this.title;
 	}
 	
-	public float getSalary(){
+	public Double getSalary(){
 		return this.salary;
 	}
 	
@@ -85,7 +79,7 @@ public class employeeObject {
 		this.title = title;
 	}
 	
-	public void setSalary(float salary){
+	public void setSalary(Double salary){
 		this.salary = salary;
 	}
 	

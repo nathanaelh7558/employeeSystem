@@ -24,6 +24,10 @@ public class DBQueries {
 		String query = "CALL updateEmployee(?,?,?,?,?,?,?);";
 		return query;
 	}
+	public String assignToProject(){
+		String query = "CALL assignToProject(?,?,?,?);";
+		return query;
+	}
 	
 	
 	

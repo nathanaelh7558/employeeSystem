@@ -1,14 +1,10 @@
 package employeeSystem;
 import admin.Admin;
-import finance.Finance;
-import chrisReid.ChrisReid;
 import util.Util;
 
 import java.text.ParseException;
 import java.util.Scanner;
-
 import javax.sql.rowset.serial.SerialException;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,7 +43,7 @@ public class runner {
 				System.out.println("Exiting - bye!");
 				System.exit(0);
 			}
-
+			
 			while (rs.next()) {
 				
 				String dbUsername = rs.getString("username");

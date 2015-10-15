@@ -4,6 +4,10 @@ CREATE DATABASE EmpDB;
 
 USE EmpDB;
 
+CREATE USER 'chrisr'@'localhost' IDENTIFIED BY 'chrisrocks';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
+CREATE USER 'finance'@'localhost' IDENTIFIED BY 'dolla';
+
 CREATE TABLE employee (  
 	employeeId int(11) PRIMARY KEY AUTO_INCREMENT, 
 	dob datetime, 
@@ -46,6 +50,12 @@ CREATE TABLE project_staff (
 	REFERENCES project(projectId) ON UPDATE CASCADE
 );
 
+CREATE TABLE credentials(
+	id int(11) PRIMARY KEY AUTO_INCREMENT,
+	username varchar(30),
+	passcode varchar(30)
+);
+
 DELIMITER // 
 CREATE PROCEDURE fillTables ()
 BEGIN
@@ -70,7 +80,9 @@ INSERT INTO project_staff VALUES('3','2','2016-04-02','2016-12-09');
 INSERT INTO project_staff VALUES('4','2','2016-11-02','2016-11-09');
 INSERT INTO project_staff VALUES('5','3','2017-01-02','2017-03-09');
 INSERT INTO project_staff VALUES('6','3','2017-01-02','2017-12-09');
-
+INSERT INTO credentials VALUES('', 'chrisr', 'chrisrocks');
+INSERT INTO credentials VALUES('','admin','admin');
+INSERT INTO credentials VALUES('','finance','dolla');
 end //
 DELIMITER ;
 
@@ -135,7 +147,6 @@ CREATE Procedure updateEmployee(
 	newDOB datetime,
 	newFName varchar(30),
 	newLName varchar(30),
-	newTitle varchar(30),
 	newPicture blob,
 	newSalary decimal(11,2)	
 	)

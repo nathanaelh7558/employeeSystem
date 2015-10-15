@@ -38,7 +38,11 @@ public class Admin {
 		if (answer.equals("1")) {
 			
 			Date date = new Date(14, 04, 1995);
-			util.runAddUserQuery(yup.addUser(), date, "bill", "bob", "mr", null,5600.50);
+			if(util.runAddUserQuery(yup.addUser(), date, "bill", "bob", "mr", null,5600.50)){
+				System.out.println("Employee Created");
+			} else {
+				System.out.println("Could Not Delete Employee");
+			}
 //			getEmployeeDetails();
 			
 		}else if (answer.equals("2")){
@@ -85,7 +89,7 @@ public class Admin {
 		}else if(answer.equals("4")){
 			System.out.println("Enter ID of employee to be deleted: ");
 			String temp = scanner.nextLine();
-			
+
 			if(util.runRemoveUserQuery(yup.removeUser(), Integer.parseInt(temp))){
 				System.out.println("Employee Deleted.");
 			} else{
@@ -93,6 +97,9 @@ public class Admin {
 			}
 		}else{
 			
+		}else{	
+			System.out.println("Please enter a valid selection");
+			adminMenu();
 		}
 	}
 

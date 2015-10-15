@@ -75,9 +75,12 @@ public boolean runRemoveUserQuery(String query, int ID ){
 		return false;
 	}
 }
-//	public Date convertDate(String tempdate){
-//		//Return like so - YYYY-MM-DD 00:00:00
-//	}
+	public void convertDate(String tempdate){
+		System.out.println(tempdate);
+		
+		
+		//Return like so - YYYY-MM-DD 00:00:00
+	}
 	
 	
 

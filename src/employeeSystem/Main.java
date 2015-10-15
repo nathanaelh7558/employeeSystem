@@ -12,8 +12,6 @@ public class Main {
 
 		runner run = new runner();
 		run.getLoginDetails();
-
-
 	}
 
 }

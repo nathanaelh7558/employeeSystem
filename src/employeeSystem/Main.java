@@ -1,16 +1,18 @@
 package employeeSystem;
-
 import employeeSystem.runner;
+
 public class Main {
 
 	public Main() {
-		// TODO Auto-generated constructor stub
+		
+		
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		runner rn = new runner();
-		rn.testingDB();
+
+		runner run = new runner();
+		run.getUserType();
+
 
 	}
 

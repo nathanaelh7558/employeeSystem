@@ -4,9 +4,15 @@ CREATE DATABASE EmpDB;
 
 USE EmpDB;
 
+DROP USER 'chrisr'@'localhost';
+DROP USER 'admin'@'localhost';
+DROP USER 'finance'@'localhost';
+
 CREATE USER 'chrisr'@'localhost' IDENTIFIED BY 'chrisrocks';
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
 CREATE USER 'finance'@'localhost' IDENTIFIED BY 'dolla';
+
+FLUSH PRIVILEGES;
 
 CREATE TABLE employee (  
 	employeeId int(11) PRIMARY KEY AUTO_INCREMENT, 
@@ -22,19 +28,18 @@ CREATE TABLE salesEmp (
 	comissionRate decimal(5,2), 
 	totalAnnualRevenue decimal(10,2), 
 	FOREIGN KEY (employeeId) 
-	REFERENCES employee(employeeId) ON UPDATE CASCADE
-	REFERENCES employee(employeeId) 
-	ON UPDATE CASCADE
+	REFERENCES employee(employeeId)
+ON UPDATE 
+	CASCADE
 );
 CREATE TABLE billableEmp ( 
 	employeeId int(11), 
 	dayRate decimal(8,2), 
 	CV blob,
  	FOREIGN KEY (employeeId) 
-	REFERENCES employee(employeeId) ON UPDATE CASCADE
-	FOREIGN KEY (employeeId) 
 	REFERENCES employee(employeeId) 
-	ON UPDATE CASCADE
+ON UPDATE 
+	CASCADE
 );
 CREATE TABLE project ( 
 	projectId int(11) PRIMARY KEY AUTO_INCREMENT, 
@@ -48,9 +53,13 @@ CREATE TABLE project_staff (
 	startDate datetime, 
 	endDate datetime,
 	FOREIGN KEY (employeeId) 
-	REFERENCES billableEmp(employeeId) ON UPDATE CASCADE, 
+	REFERENCES billableEmp(employeeId) 
+ON UPDATE 
+	CASCADE, 
 	FOREIGN KEY (projectId) 
-	REFERENCES project(projectId) ON UPDATE CASCADE
+	REFERENCES project(projectId) 
+ON UPDATE 
+	CASCADE
 );
 
 CREATE TABLE credentials(
@@ -141,8 +150,8 @@ CREATE PROCEDURE removeEmployee(
 	ID int(11)	
 	)
 BEGIN 
-DELETE FROM Employee 
-WHERE Employee.employeeId = ID;
+DELETE FROM employee 
+WHERE employee.employeeId = ID;
 end //
 DELIMITER;
 
@@ -196,7 +205,7 @@ CREATE PROCEDURE assignToProject (
 	Edate datetime 
 	)
 BEGIN
-if(EID in(SELECT employeeId from billableEmp) THEN
+if(EID in(SELECT employeeId from billableEmp)) THEN
 SET @tempStart := (SELECT startDate FROM project WHERE projectId = PID);
 SET @tempEnd := (SELECT endDate FROM project WHERE projectId = PID);
 IF ((Sdate between @tempStart and @tempEnd) AND 

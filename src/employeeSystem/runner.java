@@ -7,12 +7,19 @@ import util.Util;
 import java.util.Scanner;
 
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import employeeSystem.databaseSetterUpper;
+import employeeSystem.DBQueries;
+
 public class runner {
 	Util util = new Util();
 	Admin admin = new Admin();
 
 	public runner() {
 	}
+<<<<<<< HEAD
 	
 	public void getUserType(){
 		String answer;
@@ -32,5 +39,28 @@ public class runner {
 		}	
 	}
 	
+=======
+public void testingDB(){
+	DBQueries yup = new DBQueries();
+	databaseSetterUpper DB = new databaseSetterUpper(yup.testQuery());
+	PreparedStatement pstmt = DB.pstmt;
+	ResultSet rs;
+	try {
+		rs = pstmt.executeQuery();
+		if(!rs.isBeforeFirst()){
+			System.out.println("No Employees");
+		}
+		while (rs.next()) {
+			String username = rs.getString("employee_Fname");
+			
+				
+			}
+		
+	} catch (SQLException e) {
+		System.out.println(e);
 
+	}
+>>>>>>> master
+
+}
 }

@@ -22,16 +22,25 @@ CREATE TABLE salesEmp (
 	comissionRate decimal(5,2), 
 	totalAnnualRevenue decimal(10,2), 
 	FOREIGN KEY (employeeId) 
+<<<<<<< HEAD
+	REFERENCES employee(employeeId) ON UPDATE CASCADE
+=======
 	REFERENCES employee(employeeId) 
 	ON UPDATE CASCADE
+>>>>>>> bad9682068d70c936b0c8a8e985a065741955c74
 );
 CREATE TABLE billableEmp ( 
 	employeeId int(11), 
 	dayRate decimal(8,2), 
 	CV blob,
+<<<<<<< HEAD
+ FOREIGN KEY (employeeId) 
+	REFERENCES employee(employeeId) ON UPDATE CASCADE
+=======
 	FOREIGN KEY (employeeId) 
 	REFERENCES employee(employeeId) 
 	ON UPDATE CASCADE
+>>>>>>> bad9682068d70c936b0c8a8e985a065741955c74
 );
 CREATE TABLE project ( 
 	projectId int(11) PRIMARY KEY AUTO_INCREMENT, 
@@ -189,15 +198,17 @@ CREATE PROCEDURE assignToProject (
 	Edate datetime 
 	)
 BEGIN
+if(EID in(SELECT employeeId from billableEmp) THEN
 SET @tempStart := (SELECT startDate FROM project WHERE projectId = PID);
 SET @tempEnd := (SELECT endDate FROM project WHERE projectId = PID);
-
 IF ((Sdate between @tempStart and @tempEnd) AND 
 (Edate between @tempStart and @tempEnd)) THEN
 INSERT INTO project_staff(employeeId, projectId, startDate, 
 	endDate)
 VALUES (EID, PID, Sdate, Edate);
 ELSE SELECT 'Error, these are not valid dates for this project';
+END IF;
+ELSE SELECT 'Not a billable employee';
 END IF;
 end //
 DELIMITER ;

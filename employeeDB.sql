@@ -18,14 +18,25 @@ CREATE TABLE salesEmp (
 	comissionRate decimal(5,2), 
 	totalAnnualRevenue decimal(10,2), 
 	FOREIGN KEY (employeeId) 
+<<<<<<< HEAD
 	REFERENCES employee(employeeId) ON UPDATE CASCADE
+=======
+	REFERENCES employee(employeeId) 
+	ON UPDATE CASCADE
+>>>>>>> bad9682068d70c936b0c8a8e985a065741955c74
 );
 CREATE TABLE billableEmp ( 
 	employeeId int(11), 
 	dayRate decimal(8,2), 
 	CV blob,
+<<<<<<< HEAD
  FOREIGN KEY (employeeId) 
 	REFERENCES employee(employeeId) ON UPDATE CASCADE
+=======
+	FOREIGN KEY (employeeId) 
+	REFERENCES employee(employeeId) 
+	ON UPDATE CASCADE
+>>>>>>> bad9682068d70c936b0c8a8e985a065741955c74
 );
 CREATE TABLE project ( 
 	projectId int(11) PRIMARY KEY AUTO_INCREMENT, 
@@ -72,6 +83,8 @@ INSERT INTO project_staff VALUES('6','3','2017-01-02','2017-12-09');
 end //
 DELIMITER ;
 
+CALL fillTables();
+
 -- Insert Normal Employee Method
 
 DELIMITER // 
@@ -93,7 +106,7 @@ CREATE PROCEDURE insertSalesEmployee (
 	TR decimal(10,2)
 	)
 BEGIN
-INSERT INTO salesEmployee(employeeId, commissionRate, totalAnnualRevenue)
+INSERT INTO salesEmp(employeeId, commissionRate, totalAnnualRevenue)
 VALUES (ID, CR, TR);
 end //
 DELIMITER ;
@@ -106,19 +119,48 @@ CREATE PROCEDURE insertBillableEmployee (
 	CVO blob 
 	)
 BEGIN
-INSERT INTO billableEmployee(employeeId, dayRate, CV)
+INSERT INTO billableEmp(employeeId, dayRate, CV)
 VALUES (ID, DR, CVO);
 end //
 DELIMITER ;
 
 -- Remove Employee
 
---DELIMITER //
---CREATE PROCEDURE removeEmployee(
---	ID int(11)	
---	)
+DELIMITER //
+CREATE PROCEDURE removeEmployee(
+	ID int(11)	
+	)
+BEGIN 
+DELETE FROM Employee 
+WHERE Employee.employeeId = ID;
+end //
+DELIMITER;
 
 -- Update Employee
+
+DELIMITER // 
+CREATE Procedure updateEmployee(
+	ID int(11),
+	newDOB datetime,
+	newFName varchar(30),
+	newLName varchar(30),
+	newTitle varchar(30),
+	newPicture blob,
+	newSalary decimal(11,2)	
+	)
+UPDATE 
+	employee
+SET 
+	dob = newDOB,
+	fName = newFName,
+	lName = newLName,
+	title = newTitle,
+	picture = newPicture,
+	salary = newSalary
+WHERE 
+	employeeId = ID;
+end //
+DELIMITER ; 
 
 -- Add a Project 
 
@@ -145,7 +187,7 @@ CREATE PROCEDURE assignToProject (
 	Edate datetime 
 	)
 BEGIN
-if(EID in(SELECT employee_id from billableEmp){
+if(EID in(SELECT employeeId from billableEmp) THEN
 SET @tempStart := (SELECT startDate FROM project WHERE projectId = PID);
 SET @tempEnd := (SELECT endDate FROM project WHERE projectId = PID);
 IF ((Sdate between @tempStart and @tempEnd) AND 
@@ -155,7 +197,7 @@ INSERT INTO project_staff(employeeId, projectId, startDate,
 VALUES (EID, PID, Sdate, Edate);
 ELSE SELECT 'Error, these are not valid dates for this project';
 END IF;
-} else SELECT 'Not a billable employee';
+ELSE SELECT 'Not a billable employee';
 END IF;
 end //
 DELIMITER ;

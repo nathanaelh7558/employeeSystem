@@ -152,8 +152,8 @@ CREATE PROCEDURE removeEmployee(
 BEGIN 
 DELETE FROM employee 
 WHERE employee.employeeId = ID;
-end //
-DELIMITER;
+END //
+DELIMITER ;
 
 -- Update Employee
 
@@ -166,6 +166,7 @@ CREATE Procedure updateEmployee(
 	newPicture blob,
 	newSalary decimal(11,2)	
 	)
+BEGIN
 UPDATE 
 	employee
 SET 
@@ -179,6 +180,9 @@ WHERE
 	employeeId = ID;
 end //
 DELIMITER ; 
+
+
+
 
 -- Add a Project 
 
@@ -206,7 +210,7 @@ CREATE PROCEDURE assignToProject (
 	)
 BEGIN
 if(EID in(SELECT employeeId from billableEmp)) THEN
-SET @tempStart := (SELECT startDate FROM project WHERE projectId = PID);
+SET @tempStart := (SELECT startDate FROM project WHERE projectId =  PID);
 SET @tempEnd := (SELECT endDate FROM project WHERE projectId = PID);
 IF ((Sdate between @tempStart and @tempEnd) AND 
 (Edate between @tempStart and @tempEnd)) THEN
@@ -231,8 +235,7 @@ employeeId, CONCAT(title, '.',fName, ' ',lName) AS 'Employee Name'
 FROM 
 employee
 WHERE 
-fName LIKE ('%searchName%')
-;
+fName LIKE ('%searchName%');
 end //
 DELIMITER ;
 

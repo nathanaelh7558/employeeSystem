@@ -10,7 +10,7 @@ public class DBQueries {
 		return query;
 	}
 	public String removeUser(){
-		String query = "CALL deleteEmployee(?);";
+		String query = "CALL removeEmployee(?);";
 		return query;
 	}
 }

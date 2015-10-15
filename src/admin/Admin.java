@@ -26,8 +26,8 @@ public Admin(){
 		Util util = new Util();
 		if(answer.equals("1")){			
 			Date date = new Date(14, 04, 1995);
-			util.runAddUserQuery(yup.addUser(), date, "nat", "holmes", "mr", null,5600.50);
-			getEmployeeDetails();
+			util.runAddUserQuery(yup.addUser(), date, "bill", "bob", "mr", null,5600.50);
+//			getEmployeeDetails();
 		}else if (answer.equals("2")){
 			 java.util.Date utilDate = new java.util.Date();
 			    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());

@@ -13,4 +13,8 @@ public class DBQueries {
 		String query = "CALL removeEmployee(?);";
 		return query;
 	}
+	public String updateUser(){
+		String query = "CALL updateEmployee(?);";
+		return query;
+	}
 }

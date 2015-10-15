@@ -1,5 +1,6 @@
 package employeeSystem;
 
+import employeeSystem.runner;
 public class Main {
 
 	public Main() {
@@ -8,6 +9,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		runner rn = new runner();
+		rn.testingDB();
 
 	}
 

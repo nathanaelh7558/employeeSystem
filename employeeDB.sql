@@ -19,13 +19,15 @@ CREATE TABLE salesEmp (
 	totalAnnualRevenue decimal(10,2), 
 	FOREIGN KEY (employeeId) 
 	REFERENCES employee(employeeId) 
+	ON UPDATE CASCADE
 );
 CREATE TABLE billableEmp ( 
 	employeeId int(11), 
 	dayRate decimal(8,2), 
 	CV blob,
- FOREIGN KEY (employeeId) 
+	FOREIGN KEY (employeeId) 
 	REFERENCES employee(employeeId) 
+	ON UPDATE CASCADE
 );
 CREATE TABLE project ( 
 	projectId int(11) PRIMARY KEY AUTO_INCREMENT, 
@@ -39,9 +41,9 @@ CREATE TABLE project_staff (
 	startDate datetime, 
 	endDate datetime,
 	FOREIGN KEY (employeeId) 
-	REFERENCES billableEmp(employeeId), 
+	REFERENCES billableEmp(employeeId) ON UPDATE CASCADE, 
 	FOREIGN KEY (projectId) 
-	REFERENCES project(projectId) 
+	REFERENCES project(projectId) ON UPDATE CASCADE
 );
 
 DELIMITER // 
@@ -72,6 +74,8 @@ INSERT INTO project_staff VALUES('6','3','2017-01-02','2017-12-09');
 end //
 DELIMITER ;
 
+CALL fillTables();
+
 -- Insert Normal Employee Method
 
 DELIMITER // 
@@ -93,7 +97,7 @@ CREATE PROCEDURE insertSalesEmployee (
 	TR decimal(10,2)
 	)
 BEGIN
-INSERT INTO salesEmployee(employeeId, commissionRate, totalAnnualRevenue)
+INSERT INTO salesEmp(employeeId, commissionRate, totalAnnualRevenue)
 VALUES (ID, CR, TR);
 end //
 DELIMITER ;
@@ -106,19 +110,48 @@ CREATE PROCEDURE insertBillableEmployee (
 	CVO blob 
 	)
 BEGIN
-INSERT INTO billableEmployee(employeeId, dayRate, CV)
+INSERT INTO billableEmp(employeeId, dayRate, CV)
 VALUES (ID, DR, CVO);
 end //
 DELIMITER ;
 
 -- Remove Employee
 
---DELIMITER //
---CREATE PROCEDURE removeEmployee(
---	ID int(11)	
---	)
+DELIMITER //
+CREATE PROCEDURE removeEmployee(
+	ID int(11)	
+	)
+BEGIN 
+DELETE FROM Employee 
+WHERE Employee.employeeId = ID;
+end //
+DELIMITER;
 
 -- Update Employee
+
+DELIMITER // 
+CREATE Procedure updateEmployee(
+	ID int(11),
+	newDOB datetime,
+	newFName varchar(30),
+	newLName varchar(30),
+	newTitle varchar(30),
+	newPicture blob,
+	newSalary decimal(11,2)	
+	)
+UPDATE 
+	employee
+SET 
+	dob = newDOB,
+	fName = newFName,
+	lName = newLName,
+	title = newTitle,
+	picture = newPicture,
+	salary = newSalary
+WHERE 
+	employeeId = ID;
+end //
+DELIMITER ; 
 
 -- Add a Project 
 

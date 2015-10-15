@@ -29,7 +29,7 @@ CREATE TABLE salesEmp (
 	totalAnnualRevenue decimal(10,2), 
 	FOREIGN KEY (employeeId) 
 	REFERENCES employee(employeeId)
-ON UPDATE 
+ON DELETE 
 	CASCADE
 );
 CREATE TABLE billableEmp ( 
@@ -38,7 +38,7 @@ CREATE TABLE billableEmp (
 	CV blob,
  	FOREIGN KEY (employeeId) 
 	REFERENCES employee(employeeId) 
-ON UPDATE 
+ON DELETE 
 	CASCADE
 );
 CREATE TABLE project ( 
@@ -54,11 +54,11 @@ CREATE TABLE project_staff (
 	endDate datetime,
 	FOREIGN KEY (employeeId) 
 	REFERENCES billableEmp(employeeId) 
-ON UPDATE 
+ON DELETE 
 	CASCADE, 
 	FOREIGN KEY (projectId) 
 	REFERENCES project(projectId) 
-ON UPDATE 
+ON DELETE 
 	CASCADE
 );
 
@@ -180,9 +180,6 @@ WHERE
 	employeeId = ID;
 end //
 DELIMITER ; 
-
-
-
 
 -- Add a Project 
 

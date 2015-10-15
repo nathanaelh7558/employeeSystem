@@ -22,25 +22,19 @@ CREATE TABLE salesEmp (
 	comissionRate decimal(5,2), 
 	totalAnnualRevenue decimal(10,2), 
 	FOREIGN KEY (employeeId) 
-<<<<<<< HEAD
 	REFERENCES employee(employeeId) ON UPDATE CASCADE
-=======
 	REFERENCES employee(employeeId) 
 	ON UPDATE CASCADE
->>>>>>> bad9682068d70c936b0c8a8e985a065741955c74
 );
 CREATE TABLE billableEmp ( 
 	employeeId int(11), 
 	dayRate decimal(8,2), 
 	CV blob,
-<<<<<<< HEAD
- FOREIGN KEY (employeeId) 
+ 	FOREIGN KEY (employeeId) 
 	REFERENCES employee(employeeId) ON UPDATE CASCADE
-=======
 	FOREIGN KEY (employeeId) 
 	REFERENCES employee(employeeId) 
 	ON UPDATE CASCADE
->>>>>>> bad9682068d70c936b0c8a8e985a065741955c74
 );
 CREATE TABLE project ( 
 	projectId int(11) PRIMARY KEY AUTO_INCREMENT, 
@@ -68,9 +62,11 @@ CREATE TABLE credentials(
 DELIMITER // 
 CREATE PROCEDURE fillTables ()
 BEGIN
+-- Project data
 INSERT INTO project VALUES('','Project1','2015-01-01','2017-12-10');
 INSERT INTO project VALUES('','Project2','2016-01-01','2016-12-10');
 INSERT INTO project VALUES('','Project3','2017-01-01','2017-12-10');
+-- Employee data
 INSERT INTO employee VALUES('','1995-04-14','Employee','One','Mr','','15000');
 INSERT INTO employee VALUES('','1995-05-14','Employee','Two','Mrs','','15000');
 INSERT INTO employee VALUES('','1995-06-14','Employee','Three','Master','','15000');
@@ -83,12 +79,14 @@ INSERT INTO billableEmp VALUES('3','2.5','');
 INSERT INTO billableEmp VALUES('4','100','');
 INSERT INTO billableEmp VALUES('5','25','');
 INSERT INTO billableEmp VALUES('6','15','');
+-- Project-Staff data
 INSERT INTO project_staff VALUES('1','1','2015-01-02','2015-12-09');
 INSERT INTO project_staff VALUES('2','1','2016-04-02','2015-06-09');
 INSERT INTO project_staff VALUES('3','2','2016-04-02','2016-12-09');
 INSERT INTO project_staff VALUES('4','2','2016-11-02','2016-11-09');
 INSERT INTO project_staff VALUES('5','3','2017-01-02','2017-03-09');
 INSERT INTO project_staff VALUES('6','3','2017-01-02','2017-12-09');
+-- Creds data
 INSERT INTO credentials VALUES('', 'chrisr', 'chrisrocks');
 INSERT INTO credentials VALUES('','admin','admin');
 INSERT INTO credentials VALUES('','finance','dolla');
@@ -268,5 +266,20 @@ JOIN employee_billable
 	ON employee.employee_id = employee_billable.employee_id 
 WHERE employee.title LIKE ('%searchName%');
 end //
+DELIMITER ;
+
+-- Payroll
+
+DELIMITER //
+CREATE PROCEDURE payRoll () 
+BEGIN 
+SELECT @temp := employee.employeeId AS 'Employee Id', 
+concat(fName, ' ', lName) AS 'Employee Name', 
+if(@temp IN(SELECT employeeId FROM salesEmployee), 
+(SELECT CONCAT('£',ROUND(Salary+((totalAnnualRevenue/100)*commissionRate)))
+from employee JOIN employee_sales ON employee.employeeId = salesEmployee.employeeId ), 
+CONCAT('£',ROUND(employee.salary))) AS 'Total Amount Due'
+FROM employee; 
+END //
 DELIMITER ;
 

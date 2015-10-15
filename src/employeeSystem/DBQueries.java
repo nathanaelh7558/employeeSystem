@@ -29,21 +29,13 @@ public class DBQueries {
 		return query;
 	}
 	
-	public static void checkCredentials(String user, String password) throws SerialException, SQLException, ParseException{
+	
+	
+	public String checkCredentials(){
 		
-		String userCheck = "SELECT username, password FROM credentials WHERE username =" + user;
-		String passwordCheck = "SELECT password FROM credentials WHERE username=" + user;
+		String userCheck = "SELECT username, passcode FROM credentials WHERE username = ? AND passcode = ?;";
 		
-		if(userCheck == user && passwordCheck == password){
-			Admin admin = new Admin();
-			admin.adminMenu();
-			
-		}else{
-			Admin admin = new Admin();
-			admin.adminMenu();
-		//	System.err.println("Incorrect credentials.");
-			//System.exit(0);
-		}
+		return userCheck;
 				
 	}
 	

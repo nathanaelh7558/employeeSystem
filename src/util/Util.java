@@ -39,6 +39,28 @@ public boolean runAddUserQuery(String query, Date a, String fname, String sname,
 		return false;
 	}
 }
+
+public boolean runUpdateUserQuery(String query, int employeeId, Date a, String fname, String sname, String title,Blob pic, Double salary ){
+	DBQueries yup = new DBQueries();
+	databaseSetterUpper DB = new databaseSetterUpper(query);
+	PreparedStatement pstmt = DB.pstmt;
+	
+	try {
+		pstmt.setInt(1, employeeId);
+		pstmt.setDate(2, (java.sql.Date) a);
+		pstmt.setString(3,fname);
+		pstmt.setString(4,sname);
+		pstmt.setString(5,title);
+		pstmt.setBlob(6, pic);
+		pstmt.setDouble(7,salary);
+		pstmt.executeUpdate();	
+		return true;
+	} catch (SQLException e) {
+		System.out.println(e);
+		return false;
+	}
+}
+
 public boolean runRemoveUserQuery(String query, int ID ){
 	DBQueries yup = new DBQueries();
 	databaseSetterUpper DB = new databaseSetterUpper(query);

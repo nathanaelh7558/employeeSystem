@@ -14,7 +14,7 @@ public class DBQueries {
 		return query;
 	}
 	public String updateUser(){
-		String query = "CALL updateEmployee(?);";
+		String query = "CALL updateEmployee(?,?,?,?,?,?,?);";
 		return query;
 	}
 }

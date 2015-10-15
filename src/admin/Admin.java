@@ -95,8 +95,6 @@ public class Admin {
 			} else{
 				System.out.println("Employee Could Not Be Deleted.");
 			}
-		}else{
-			
 		}else{	
 			System.out.println("Please enter a valid selection");
 			adminMenu();

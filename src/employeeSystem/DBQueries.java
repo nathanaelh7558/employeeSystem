@@ -9,5 +9,8 @@ public class DBQueries {
 		String query = "CALL insertEmployee(?,?,?,?,?,?);";
 		return query;
 	}
-
+	public String removeUser(){
+		String query = "CALL deleteEmployee(?);";
+		return query;
+	}
 }

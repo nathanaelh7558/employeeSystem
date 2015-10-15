@@ -4,9 +4,11 @@ import finance.Finance;
 import chrisReid.ChrisReid;
 import util.Util;
 import java.util.Scanner;
+import javax.sql.rowset.serial.SerialException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import employeeSystem.databaseSetterUpper;
 import employeeSystem.DBQueries;
 
@@ -17,7 +19,6 @@ public class runner {
 	public runner() {
 	}
 
-	
 	public void getLoginDetails(){
 		String answer;
 		String userName, password;
@@ -29,8 +30,15 @@ public class runner {
 		System.out.println("");
 		if(answer.equals("1")){
 			Admin admin = new Admin();
-			admin.adminMenu();
-			
+			try{
+				admin.adminMenu();	
+			}catch(SerialException SE){
+				SE.printStackTrace();
+			}catch(SQLException SQLE){
+				SQLE.printStackTrace();
+			}catch(ParseException PE){
+				PE.printStackTrace();
+			}
 		}else if(answer.equals("2")){
 			//Calls finance class
 		}else if(answer.equals("3")){

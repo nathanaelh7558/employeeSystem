@@ -30,8 +30,11 @@ public class Admin {
 		String answer;
 
 		System.out.println("What would you like to do? ");
-		System.out
-				.println("1: Add employee || 2: Assign employee to project || 3: Update employee || 4: Remove employee");
+		System.out.println("1: Add employee ||"
+				+ " 2: Assign employee to project || "
+				+ "3: Update employee || "
+				+ "4: Remove employee");
+		
 		answer = scanner.nextLine();
 		System.out.println("");
 		Util util = new Util();
@@ -42,9 +45,7 @@ public class Admin {
 				System.out.println("Employee Created");
 			} else {
 				System.out.println("Could Not Delete Employee");
-			}
-//			getEmployeeDetails();
-			
+			}			
 		}else if (answer.equals("2")){
 			
 			 java.util.Date utilDate = new java.util.Date();

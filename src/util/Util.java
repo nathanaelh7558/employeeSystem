@@ -53,6 +53,23 @@ public boolean runRemoveUserQuery(String query, int ID ){
 		return false;
 	}
 }
+public boolean runAssignUserQuery(String query, int ID, int PID, Date start, Date end){
+	DBQueries yup = new DBQueries();
+	databaseSetterUpper DB = new databaseSetterUpper(query);
+	PreparedStatement pstmt = DB.pstmt;
+	
+	try {
+		pstmt.setInt(1, ID);
+		pstmt.setInt(2, PID);
+		pstmt.setDate(3, start);
+		pstmt.setDate(4, end);
+		pstmt.executeUpdate();	
+		return true;
+	} catch (SQLException e) {
+		System.out.println(e);
+		return false;
+	}
+}
 //	public Date convertDate(String tempdate){
 //		//Return like so - YYYY-MM-DD 00:00:00
 //	}

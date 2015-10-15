@@ -214,7 +214,7 @@ IF ((Sdate between @tempStart and @tempEnd) AND
 INSERT INTO project_staff(employeeId, projectId, startDate, 
 	endDate)
 VALUES (EID, PID, Sdate, Edate);
-ELSE SELECT 'Error, these are not valid dates for this project';
+ELSE SELECT 'Error, these are not valid dates for this project', @tempStart,@tempEnd, Sdate, Edate;
 END IF;
 ELSE SELECT 'Not a billable employee';
 END IF;

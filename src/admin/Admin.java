@@ -37,7 +37,9 @@ public Admin(){
 		}else if(answer.equals("3")){
 			//Answer is 3
 		}else if(answer.equals("4")){
-			util.runRemoveUserQuery(yup.removeUser(), 4);
+			System.out.println("Enter employeeId of employee to be deleted...");
+			String temp = scanner.nextLine();
+			util.runRemoveUserQuery(yup.removeUser(), Integer.parseInt(temp));
 		}else{			
 		}
 	}	

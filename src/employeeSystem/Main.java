@@ -21,8 +21,7 @@ public class Main {
 	static Logger log = Logger.getLogger("");
 	private static void setupLog(){
 		try {
-		log.setLevel(Level.SEVERE);
-			Handler h = new FileHandler("%h/workspace/helloProject2/Hello-%g.log", 100000, 5, true);
+			Handler h = new FileHandler("%h/workspace/MYLOG.log", 100000, 5, true);
 			h.setFormatter(new SimpleFormatter());
 			log.addHandler(h);
 		

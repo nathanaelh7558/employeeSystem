@@ -19,7 +19,7 @@ import util.Util;
 
 public class Admin {
 employeeObject newUser = new employeeObject();
-protected static Logger log = Logger.getLogger(employeeObject.class.getName());
+protected static Logger log = Logger.getLogger(Admin.class.getName());
 
 	public Admin() {
 

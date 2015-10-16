@@ -33,6 +33,7 @@ public boolean runAddUserQuery(String query, Date a, String fname, String sname,
 		pstmt.setString(4,title);
 		pstmt.setBlob(5, pic);
 		pstmt.setDouble(6,salary);
+		System.exit(0);
 		pstmt.executeUpdate();	
 		return true;
 	} catch (SQLException e) {

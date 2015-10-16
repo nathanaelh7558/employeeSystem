@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.logging.Logger;
 
 public class databaseSetterUpper {
-	protected static Logger log = Logger.getLogger(employeeObject.class.getName());
+	protected static Logger log = Logger.getLogger(databaseSetterUpper.class.getName());
 
 //	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
 	private static final String DB_URL = "jdbc:mysql://localhost:3306/EmpDB";

@@ -32,7 +32,10 @@ public class Admin {
 
 		System.out.println("What would you like to do? ");
 		System.out
-				.println("1: Add employee || 2: Assign employee to project || 3: Update employee || 4: Remove employee");
+				.println("1: Add employee || 2: Assign employee to project ||"
+						+ " 3: Update employee || 4: Remove employee ||\n"
+						+ "5: Delete project || 6: Add project || 7: Update project");
+		System.out.println("");
 		answer = scanner.nextLine();
 		System.out.println("");
 		Util util = new Util();
@@ -130,6 +133,79 @@ public class Admin {
 				System.out.println("Employee Deleted.");
 			} else{
 				System.out.println("Employee Could Not Be Deleted.");
+			}
+		}else if(answer.equals("5")){
+			System.out.println("Enter ID of project to be deleted: ");
+			String temp = scanner.nextLine();
+
+			if(util.runRemoveProjectQuery(yup.removeProject(), Integer.parseInt(temp))){
+				System.out.println("Project Deleted.");
+			} else{
+				System.out.println("Project Could Not Be Deleted.");
+			}
+		}else if(answer.equals("6")){
+			System.out.println("Enter Name of project to be added: ");
+			String temp = scanner.nextLine();
+			System.out.println("Enter project start date: ");
+			String temp2 = scanner.nextLine();
+			 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				java.util.Date dob = null;
+				java.sql.Date sqlDate = null;
+				try {
+					dob = formatter.parse(temp2);
+				    sqlDate = new java.sql.Date(dob.getTime());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			System.out.println("Enter project end date: ");
+			String temp3 = scanner.nextLine();
+				java.util.Date dob2 = null;
+				java.sql.Date sqlDate2 = null;
+				try {
+					dob2 = formatter.parse(temp3);
+				    sqlDate2 = new java.sql.Date(dob2.getTime());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			if(util.runAddProjectQuery(yup.addProject(), temp, sqlDate,sqlDate2)){
+				System.out.println("Project Added.");
+			} else{
+				System.out.println("Project Could Not Be Added.");
+			}
+		}else if(answer.equals("7")){
+			System.out.println("Enter ID of project to be updated: ");
+			int temp = Integer.parseInt(scanner.nextLine());
+			System.out.println("Enter Name of project: ");
+			String temp2 = scanner.nextLine();
+			System.out.println("Enter project start date: ");
+			String temp3 = scanner.nextLine();
+			 SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				java.util.Date dob = null;
+				java.sql.Date sqlDate = null;
+				try {
+					dob = formatter.parse(temp3);
+				    sqlDate = new java.sql.Date(dob.getTime());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			System.out.println("Enter project end date: ");
+			String temp4 = scanner.nextLine();
+				java.util.Date dob2 = null;
+				java.sql.Date sqlDate2 = null;
+				try {
+					dob2 = formatter.parse(temp4);
+				    sqlDate2 = new java.sql.Date(dob2.getTime());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			if(util.runUpdateProjectQuery(yup.updateProject(), temp,temp2, sqlDate,sqlDate2)){
+				System.out.println("Project Updated.");
+			} else{
+				System.out.println("Project Could Not Be Updated.");
 			}
 		}else{	
 			System.out.println("Please enter a valid selection");

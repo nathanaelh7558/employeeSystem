@@ -191,7 +191,7 @@ CREATE PROCEDURE addProject (
 	Edate datetime 
 	)
 BEGIN
-INSERT INTO project(name, start_date, end_date )
+INSERT INTO project(name, startDate, endDate )
 VALUES (Pname, Sdate, Edate);
 end //
 DELIMITER ;
@@ -216,6 +216,18 @@ WHERE
 	projectId = ID;
 end //
 DELIMITER ; 
+-- Remove Project
+
+DELIMITER //
+CREATE PROCEDURE removeProject(
+	ID int(11)	
+	)
+BEGIN 
+DELETE FROM project 
+WHERE projectId = ID;
+END //
+DELIMITER ;
+
 -- Assign billable employee
 -- Admin team ONLY 
 

@@ -37,7 +37,39 @@ public boolean runAddUserQuery(String query, Date a, String fname, String sname,
 		return false;
 	}
 }
-
+public boolean runAddProjectQuery(String query, String Pname, Date a, Date b){
+	DBQueries yup = new DBQueries();
+	databaseSetterUpper DB = new databaseSetterUpper(query);
+	PreparedStatement pstmt = DB.pstmt;
+	
+	try {
+		pstmt.setDate(2, a);
+		pstmt.setDate(3,b);
+		pstmt.setString(1,Pname);
+		pstmt.executeUpdate();	
+		return true;
+	} catch (SQLException e) {
+		System.out.println(e);
+		return false;
+	}
+}
+public boolean runUpdateProjectQuery(String query, int ID, String Pname, Date a, Date b){
+	DBQueries yup = new DBQueries();
+	databaseSetterUpper DB = new databaseSetterUpper(query);
+	PreparedStatement pstmt = DB.pstmt;
+	
+	try {
+		pstmt.setDate(3, a);
+		pstmt.setDate(4,b);
+		pstmt.setString(2,Pname);
+		pstmt.setInt(1,ID);
+		pstmt.executeUpdate();	
+		return true;
+	} catch (SQLException e) {
+		System.out.println(e);
+		return false;
+	}
+}
 public boolean runUpdateUserQuery(String query, int employeeId, Date a, String fname, String sname, String title,Blob pic, Double salary ){
 	DBQueries yup = new DBQueries();
 	databaseSetterUpper DB = new databaseSetterUpper(query);
@@ -60,6 +92,20 @@ public boolean runUpdateUserQuery(String query, int employeeId, Date a, String f
 }
 
 public boolean runRemoveUserQuery(String query, int ID ){
+	DBQueries yup = new DBQueries();
+	databaseSetterUpper DB = new databaseSetterUpper(query);
+	PreparedStatement pstmt = DB.pstmt;
+	
+	try {
+		pstmt.setInt(1, ID);
+		pstmt.executeUpdate();	
+		return true;
+	} catch (SQLException e) {
+		System.out.println(e);
+		return false;
+	}
+}
+public boolean runRemoveProjectQuery(String query, int ID ){
 	DBQueries yup = new DBQueries();
 	databaseSetterUpper DB = new databaseSetterUpper(query);
 	PreparedStatement pstmt = DB.pstmt;

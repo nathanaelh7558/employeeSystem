@@ -28,8 +28,18 @@ public class DBQueries {
 		String query = "CALL assignToProject(?,?,?,?);";
 		return query;
 	}
-	
-	
+	public String updateProject(){
+		String query = "CALL updateProject(?,?,?,?);";
+		return query;
+	}
+	public String addProject(){
+		String query = "CALL addProject(?,?,?);";
+		return query;
+	}
+	public String removeProject(){
+		String query = "CALL removeProject(?);";
+		return query;
+	}
 	
 	public String checkCredentials(){
 		

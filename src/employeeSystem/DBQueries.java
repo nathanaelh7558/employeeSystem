@@ -40,6 +40,7 @@ public class DBQueries {
 		String query = "CALL removeProject(?);";
 		return query;
 	}
+
 	
 	public String checkCredentials(){
 		

@@ -2,6 +2,7 @@ package util;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.logging.Logger;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
@@ -10,9 +11,11 @@ import java.sql.SQLException;
 
 import employeeSystem.DBQueries;
 import employeeSystem.databaseSetterUpper;
+import employeeSystem.employeeObject;
 
 public class Util {
-	
+	protected static Logger log = Logger.getLogger(employeeObject.class.getName());
+
 	public String lowerCase(String input){
 		String lowercase;
 		lowercase = input.toLowerCase();
@@ -22,7 +25,7 @@ public boolean runAddUserQuery(String query, Date a, String fname, String sname,
 	DBQueries yup = new DBQueries();
 	databaseSetterUpper DB = new databaseSetterUpper(query);
 	PreparedStatement pstmt = DB.pstmt;
-	
+	log.info("trying to add user with query : " + query);
 	try {
 		pstmt.setDate(1, (java.sql.Date) a);
 		pstmt.setString(2,fname);
@@ -33,6 +36,7 @@ public boolean runAddUserQuery(String query, Date a, String fname, String sname,
 		pstmt.executeUpdate();	
 		return true;
 	} catch (SQLException e) {
+		log.warning("Failed to executey query with this error"+e);
 		System.out.println(e);
 		return false;
 	}

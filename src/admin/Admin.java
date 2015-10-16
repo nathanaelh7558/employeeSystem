@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import javax.sql.rowset.serial.SerialException;
 
@@ -17,6 +18,8 @@ import employeeSystem.employeeObject;
 import util.Util;
 
 public class Admin {
+employeeObject newUser = new employeeObject();
+protected static Logger log = Logger.getLogger(employeeObject.class.getName());
 
 	public Admin() {
 
@@ -42,12 +45,7 @@ public class Admin {
 		System.out.println("");
 		Util util = new Util();
 		if(answer.equals("1")){			
-			employeeObject user = getEmployeeDetails();
-			if(util.runAddUserQuery(yup.addUser(), user.getDOB(), user.getFirstName(), user.getsurName(), user.getTitle(),(Blob) null,user.getSalary())){
-				System.out.println("Employee Created");
-			} else {
-				System.out.println("Could Not Create Employee");
-			}
+			getEmployeeDetails();
 			//			getEmployeeDetails();
 
 		}else if (answer.equals("2")){
@@ -216,44 +214,110 @@ public class Admin {
 		}
 	}	
 
+public Boolean setEmployeeTitle(){
+	System.out.println("Employee's title:  ");
+	String title = scanner.nextLine();
+	if(title != null && !title.isEmpty()){
+		newUser.setTitle(title);
+		log.info("Employee title added as: " + title);
+	return true;
+	} else {
+		System.out.println("Please enter a valid title");
+		log.warning("trying to enter invalid employee title: " + title);
+		setEmployeeTitle();
+		return false;
+	}
+}
+public boolean setEmployeeFirstname(){
+	System.out.println("Employee's firstname:  ");
+	String fname = scanner.nextLine();
+	if(fname != null && !fname.isEmpty()){
+		newUser.setFirstName(fname);
+		setEmployeeSurname();
+		log.info("Employee firstname added as: " + fname);
+	return true;
+	} else {
+		System.out.println("Please enter a valid first name");
+		log.warning("trying to enter invalid employee firstname: " + fname);
+		setEmployeeFirstname();
+		return false;
+	}
+}
+public boolean setEmployeeSurname(){
+	System.out.println("Employee's surname:  ");
+	String surname = scanner.nextLine();
+	if(surname != null && !surname.isEmpty()){
+		newUser.setSurName(surname);
+		setEmployeeDOB();
+		log.info("Employee surname added as: " + surname);
+	return true;
+	} else {
+		System.out.println("Please enter a valid surname");
+		log.warning("trying to enter invalid employee surname: " + surname);
+		setEmployeeSurname();
+		return false;
+	}
+}
+public boolean setEmployeeDOB(){
+	System.out.println("Employee's DOB:  ");
+	String DOB = scanner.nextLine();
+	if(convertDate(DOB)){
+		setEmployeeSalary();
+		log.info("Employee date of birth added as: " + DOB);
+	return true;
+	} else {
+		System.out.println("Please enter a valid date of birth (DD-MM-YYYY)");
+		log.warning("trying to enter invalid date of birth: " + DOB);
+		setEmployeeDOB();
+		return false;
+	}
+}
+public boolean convertDate(String x){
+	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+	java.util.Date dob = null;
+	java.sql.Date sqlDate = null;
+	try {
+		dob = formatter.parse(x);
+		sqlDate = new java.sql.Date(dob.getTime());
+		newUser.setDob(sqlDate);
+		log.info("Successfully parsed date to sql date: " + x);
+		return true;
+	} catch (ParseException e) {
+		log.warning("Failed to parse date to sql date with error: " + e);
+	return false;
+	}
+}
+public boolean setEmployeeSalary(){
+	System.out.println("Employee's salary:  ");
+	String salary = scanner.nextLine();
+	if (salary.matches("[0-9]+") && salary.length() > 0) {
+		Double temp = Double.parseDouble(salary);
+		newUser.setSalary(temp);
+		log.info("Employee salary added as: " + salary);
+		employeeIsGood();
+	return true;
+	} else {
+		System.out.println("Please enter a valid salary");
+		log.warning("trying to enter invalid salary: " + salary);
+		setEmployeeSalary();
+		return false;
+	}
+}
+public void employeeIsGood(){
+	Util util = new Util();		
+		if(util.runAddUserQuery(yup.addUser(), newUser.getDOB(), newUser.getFirstName(), newUser.getsurName(), newUser.getTitle(),(Blob) null,newUser.getSalary())){
+			System.out.println("Employee Created");
+			log.info("Employee sucessfully added to sql databases");
 
-	public employeeObject getEmployeeDetails(){
-		//Initialize variables 
-		String firstName, surname, title, picture, tempDOB;
-		Double salary;	
-		Date DOB;
-		// Outputs helper text
-		System.out
-		.println("Provide the new employee''s details in following: ");
-		System.out.println("Employee's title:  ");
-		title = scanner.nextLine();
-		// Get firstName
-		System.out.print("Employee's firstname:  ");
-		firstName = scanner.nextLine();
-		// Get surname
-		System.out.print("Employee's surname:  ");
-		surname = scanner.nextLine();
-		// Get DOB
-		System.out.print("Employee's DOB:  ");
-		tempDOB = scanner.nextLine();
-		//Converts string to date
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		java.util.Date dob = null;
-		java.sql.Date sqlDate = null;
-		try {
-			dob = formatter.parse(tempDOB);
-			sqlDate = new java.sql.Date(dob.getTime());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} else {
+			System.out.println("Could Not Create Employee");
+			log.warning("Employee wasn't added to sql database ");
 		}
-		//Get salary
-		// DOB = util.convertDate(tempDOB); //Converts string to date
-		// Get salary
-		System.out.print("Employee's salary: ");
-		salary = scanner.nextDouble();
-		employeeObject newEmployee = new employeeObject(firstName, surname, title, salary, sqlDate);
-		return newEmployee;
+	
+}
+	public void getEmployeeDetails(){
+		System.out.println("Provide the new employee''s details in following: ");
+		setEmployeeFirstname();
 	}
 
 	public static void main(String[] args) {

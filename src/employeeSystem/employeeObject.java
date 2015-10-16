@@ -1,6 +1,7 @@
 package employeeSystem;
 
 import java.sql.Date;
+import java.util.logging.Logger;
 
 public class employeeObject {
 	private String firstName;
@@ -9,8 +10,12 @@ public class employeeObject {
 	private String title;
 	private Double salary;
 	private Date DOB;
-	
+	protected static Logger log = Logger.getLogger(employeeObject.class.getName());
+
 	//Overloaded constructor
+	public employeeObject() {
+		
+	}
 	public employeeObject(String firstName) {
 		setFirstName(firstName);
 	}
@@ -64,26 +69,32 @@ public class employeeObject {
 	//Setters
 	
 	public void setFirstName(String firstName){
+		log.info("Employee firstname added as: " + firstName);
 		this.firstName = firstName;
 	}
 	
 	public void setSurName(String surName){
+		log.info("Employee surname added as: " + surName);
 		this.surName = surName;
 	}
 	
 	public void setEmployeeID(int id){
+		log.info("Employee Id added as: " + employeeID);
 		this.employeeID = id;
 	}
 	
 	public void setTitle(String title){
+		log.info("Employee title added as: " + title);
 		this.title = title;
 	}
 	
 	public void setSalary(Double salary){
+		log.info("Employee salary added as: " + salary);
 		this.salary = salary;
 	}
 	
 	public void setDob(Date dob){
+		log.info("Employee Date of Birth added as: " + dob);
 		this.DOB = dob;
 	}
 	

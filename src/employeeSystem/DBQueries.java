@@ -29,8 +29,6 @@ public class DBQueries {
 		return query;
 	}
 	
-	
-	
 	public String checkCredentials(){
 		
 		String userCheck = "SELECT username, passcode FROM credentials WHERE username = ? AND passcode = ?;";

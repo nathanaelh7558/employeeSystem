@@ -1,7 +1,6 @@
 package employeeSystem;
 import admin.Admin;
 import util.Util;
-
 import java.text.ParseException;
 import java.util.Scanner;
 import javax.sql.rowset.serial.SerialException;
@@ -14,8 +13,8 @@ import employeeSystem.DBQueries;
 public class runner {
 	Util util = new Util();
 
-
 	public runner() {
+		
 	}
 
 	public void getLoginDetails() throws SerialException, SQLException, ParseException{

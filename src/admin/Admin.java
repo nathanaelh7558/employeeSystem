@@ -140,12 +140,15 @@ public class Admin {
 		}
 		else if(answer.equals("5")){
 			//add project
+			
 		}
 		else if(answer.equals("6")){
 			//update project
+			
 		}
 		else if(answer.equals("7")){
 			//delete project
+			
 		}
 		else{	
 			System.out.println("Please enter a valid selection");
